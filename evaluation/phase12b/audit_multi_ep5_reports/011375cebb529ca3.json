@@ -1,0 +1,1753 @@
+{
+  "uuid": "011375cebb529ca3",
+  "version": "AIv12b.100ms",
+  "timestamp": "2026-04-28T06:30:52.206820Z",
+  "difficulties": {
+    "Easy": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 1733,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.502,
+        "right_pct": 0.498,
+        "center_count": 0,
+        "imbalance_score": 0.005
+      },
+      "density_ramp": {
+        "pass": false,
+        "early_nps": 15.41,
+        "late_nps": 15.45,
+        "ramp_ratio": 1.0,
+        "max_nps_threshold": 9.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 89,
+            "time_start": 0.0,
+            "time_end": 5720.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 5720.0
+          },
+          {
+            "length": 48,
+            "time_start": 5880.0,
+            "time_end": 8930.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 3050.0
+          },
+          {
+            "length": 31,
+            "time_start": 9110.0,
+            "time_end": 10890.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1780.0
+          },
+          {
+            "length": 18,
+            "time_start": 11060.0,
+            "time_end": 12060.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1000.0
+          },
+          {
+            "length": 48,
+            "time_start": 12230.0,
+            "time_end": 15240.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 3010.0
+          },
+          {
+            "length": 18,
+            "time_start": 15400.0,
+            "time_end": 16410.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1010.0
+          },
+          {
+            "length": 119,
+            "time_start": 16580.0,
+            "time_end": 23850.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 7270.0
+          },
+          {
+            "length": 74,
+            "time_start": 24010.0,
+            "time_end": 28800.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4790.0
+          },
+          {
+            "length": 72,
+            "time_start": 28960.0,
+            "time_end": 33420.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4460.0
+          },
+          {
+            "length": 65,
+            "time_start": 33580.0,
+            "time_end": 37750.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4170.0
+          },
+          {
+            "length": 96,
+            "time_start": 37910.0,
+            "time_end": 43880.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 146.3,
+            "duration_ms": 5970.0
+          },
+          {
+            "length": 6,
+            "time_start": 44050.0,
+            "time_end": 44330.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 280.0
+          },
+          {
+            "length": 25,
+            "time_start": 44500.0,
+            "time_end": 46040.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1540.0
+          },
+          {
+            "length": 50,
+            "time_start": 46200.0,
+            "time_end": 49100.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 2900.0
+          },
+          {
+            "length": 205,
+            "time_start": 49260.0,
+            "time_end": 62680.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 13420.0
+          },
+          {
+            "length": 20,
+            "time_start": 62850.0,
+            "time_end": 64030.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1180.0
+          },
+          {
+            "length": 158,
+            "time_start": 64200.0,
+            "time_end": 74230.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 10030.0
+          },
+          {
+            "length": 6,
+            "time_start": 74390.0,
+            "time_end": 74630.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 240.0
+          },
+          {
+            "length": 42,
+            "time_start": 74790.0,
+            "time_end": 77450.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 2660.0
+          },
+          {
+            "length": 92,
+            "time_start": 77610.0,
+            "time_end": 83330.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 5720.0
+          }
+        ],
+        "rail_count": 23,
+        "total_rail_notes": 1734
+      },
+      "note_count": 1734,
+      "duration_s": 112.65,
+      "avg_nps": 15.392809587217043,
+      "overall_pass": false
+    },
+    "Normal": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 1731,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.502,
+        "right_pct": 0.498,
+        "center_count": 0,
+        "imbalance_score": 0.005
+      },
+      "density_ramp": {
+        "pass": true,
+        "early_nps": 15.41,
+        "late_nps": 15.41,
+        "ramp_ratio": 1.0,
+        "max_nps_threshold": 13.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 89,
+            "time_start": 0.0,
+            "time_end": 5720.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 5720.0
+          },
+          {
+            "length": 48,
+            "time_start": 5880.0,
+            "time_end": 8930.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 3050.0
+          },
+          {
+            "length": 31,
+            "time_start": 9110.0,
+            "time_end": 10890.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1780.0
+          },
+          {
+            "length": 18,
+            "time_start": 11060.0,
+            "time_end": 12060.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1000.0
+          },
+          {
+            "length": 48,
+            "time_start": 12230.0,
+            "time_end": 15240.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 3010.0
+          },
+          {
+            "length": 18,
+            "time_start": 15400.0,
+            "time_end": 16410.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1010.0
+          },
+          {
+            "length": 119,
+            "time_start": 16580.0,
+            "time_end": 23850.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 7270.0
+          },
+          {
+            "length": 74,
+            "time_start": 24010.0,
+            "time_end": 28800.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4790.0
+          },
+          {
+            "length": 72,
+            "time_start": 28960.0,
+            "time_end": 33420.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4460.0
+          },
+          {
+            "length": 65,
+            "time_start": 33580.0,
+            "time_end": 37750.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4170.0
+          },
+          {
+            "length": 96,
+            "time_start": 37910.0,
+            "time_end": 43880.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 146.3,
+            "duration_ms": 5970.0
+          },
+          {
+            "length": 6,
+            "time_start": 44050.0,
+            "time_end": 44330.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 280.0
+          },
+          {
+            "length": 25,
+            "time_start": 44500.0,
+            "time_end": 46040.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1540.0
+          },
+          {
+            "length": 255,
+            "time_start": 46200.0,
+            "time_end": 62680.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 16480.0
+          },
+          {
+            "length": 20,
+            "time_start": 62850.0,
+            "time_end": 64030.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1180.0
+          },
+          {
+            "length": 157,
+            "time_start": 64200.0,
+            "time_end": 74230.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 10030.0
+          },
+          {
+            "length": 6,
+            "time_start": 74390.0,
+            "time_end": 74630.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 240.0
+          },
+          {
+            "length": 42,
+            "time_start": 74790.0,
+            "time_end": 77450.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 2660.0
+          },
+          {
+            "length": 92,
+            "time_start": 77610.0,
+            "time_end": 83330.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 5720.0
+          },
+          {
+            "length": 151,
+            "time_start": 83490.0,
+            "time_end": 93000.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 9510.0
+          }
+        ],
+        "rail_count": 22,
+        "total_rail_notes": 1732
+      },
+      "note_count": 1732,
+      "duration_s": 112.65,
+      "avg_nps": 15.375055481580114,
+      "overall_pass": true
+    },
+    "Hard": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 1733,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.502,
+        "right_pct": 0.498,
+        "center_count": 0,
+        "imbalance_score": 0.005
+      },
+      "density_ramp": {
+        "pass": true,
+        "early_nps": 15.45,
+        "late_nps": 15.41,
+        "ramp_ratio": 1.0,
+        "max_nps_threshold": 16.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 90,
+            "time_start": 0.0,
+            "time_end": 5720.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 5720.0
+          },
+          {
+            "length": 8,
+            "time_start": 5880.0,
+            "time_end": 6250.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 370.0
+          },
+          {
+            "length": 40,
+            "time_start": 6420.0,
+            "time_end": 8930.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 2510.0
+          },
+          {
+            "length": 31,
+            "time_start": 9110.0,
+            "time_end": 10890.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1780.0
+          },
+          {
+            "length": 18,
+            "time_start": 11060.0,
+            "time_end": 12060.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1000.0
+          },
+          {
+            "length": 48,
+            "time_start": 12230.0,
+            "time_end": 15240.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 3010.0
+          },
+          {
+            "length": 18,
+            "time_start": 15400.0,
+            "time_end": 16410.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1010.0
+          },
+          {
+            "length": 119,
+            "time_start": 16580.0,
+            "time_end": 23850.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 7270.0
+          },
+          {
+            "length": 74,
+            "time_start": 24010.0,
+            "time_end": 28800.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4790.0
+          },
+          {
+            "length": 72,
+            "time_start": 28960.0,
+            "time_end": 33420.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4460.0
+          },
+          {
+            "length": 65,
+            "time_start": 33580.0,
+            "time_end": 37750.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4170.0
+          },
+          {
+            "length": 96,
+            "time_start": 37910.0,
+            "time_end": 43880.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 146.3,
+            "duration_ms": 5970.0
+          },
+          {
+            "length": 6,
+            "time_start": 44050.0,
+            "time_end": 44330.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 280.0
+          },
+          {
+            "length": 25,
+            "time_start": 44500.0,
+            "time_end": 46040.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1540.0
+          },
+          {
+            "length": 50,
+            "time_start": 46200.0,
+            "time_end": 49100.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 2900.0
+          },
+          {
+            "length": 205,
+            "time_start": 49260.0,
+            "time_end": 62680.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 13420.0
+          },
+          {
+            "length": 20,
+            "time_start": 62850.0,
+            "time_end": 64030.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1180.0
+          },
+          {
+            "length": 159,
+            "time_start": 64200.0,
+            "time_end": 74230.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 10030.0
+          },
+          {
+            "length": 6,
+            "time_start": 74390.0,
+            "time_end": 74630.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 240.0
+          },
+          {
+            "length": 41,
+            "time_start": 74790.0,
+            "time_end": 77450.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 2660.0
+          }
+        ],
+        "rail_count": 24,
+        "total_rail_notes": 1734
+      },
+      "note_count": 1734,
+      "duration_s": 112.65,
+      "avg_nps": 15.392809587217043,
+      "overall_pass": true
+    },
+    "Expert": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 1730,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.502,
+        "right_pct": 0.498,
+        "center_count": 0,
+        "imbalance_score": 0.004
+      },
+      "density_ramp": {
+        "pass": true,
+        "early_nps": 15.38,
+        "late_nps": 15.41,
+        "ramp_ratio": 1.0,
+        "max_nps_threshold": 19.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 89,
+            "time_start": 0.0,
+            "time_end": 5710.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 5710.0
+          },
+          {
+            "length": 53,
+            "time_start": 5880.0,
+            "time_end": 9230.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 146.3,
+            "duration_ms": 3350.0
+          },
+          {
+            "length": 26,
+            "time_start": 9390.0,
+            "time_end": 10890.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1500.0
+          },
+          {
+            "length": 17,
+            "time_start": 11060.0,
+            "time_end": 12060.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1000.0
+          },
+          {
+            "length": 48,
+            "time_start": 12230.0,
+            "time_end": 15240.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 3010.0
+          },
+          {
+            "length": 18,
+            "time_start": 15400.0,
+            "time_end": 16410.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1010.0
+          },
+          {
+            "length": 119,
+            "time_start": 16580.0,
+            "time_end": 23850.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 7270.0
+          },
+          {
+            "length": 74,
+            "time_start": 24010.0,
+            "time_end": 28800.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4790.0
+          },
+          {
+            "length": 72,
+            "time_start": 28960.0,
+            "time_end": 33420.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4460.0
+          },
+          {
+            "length": 65,
+            "time_start": 33580.0,
+            "time_end": 37750.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4170.0
+          },
+          {
+            "length": 96,
+            "time_start": 37910.0,
+            "time_end": 43880.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 146.3,
+            "duration_ms": 5970.0
+          },
+          {
+            "length": 6,
+            "time_start": 44050.0,
+            "time_end": 44330.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 280.0
+          },
+          {
+            "length": 25,
+            "time_start": 44500.0,
+            "time_end": 46040.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1540.0
+          },
+          {
+            "length": 255,
+            "time_start": 46200.0,
+            "time_end": 62680.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 16480.0
+          },
+          {
+            "length": 20,
+            "time_start": 62850.0,
+            "time_end": 64030.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1180.0
+          },
+          {
+            "length": 157,
+            "time_start": 64200.0,
+            "time_end": 74230.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 10030.0
+          },
+          {
+            "length": 6,
+            "time_start": 74390.0,
+            "time_end": 74630.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 240.0
+          },
+          {
+            "length": 42,
+            "time_start": 74790.0,
+            "time_end": 77450.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 2660.0
+          },
+          {
+            "length": 92,
+            "time_start": 77610.0,
+            "time_end": 83330.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 5720.0
+          },
+          {
+            "length": 151,
+            "time_start": 83490.0,
+            "time_end": 93000.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 9510.0
+          }
+        ],
+        "rail_count": 22,
+        "total_rail_notes": 1731
+      },
+      "note_count": 1731,
+      "duration_s": 112.65,
+      "avg_nps": 15.36617842876165,
+      "overall_pass": true
+    },
+    "Master": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 1733,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.503,
+        "right_pct": 0.497,
+        "center_count": 0,
+        "imbalance_score": 0.006
+      },
+      "density_ramp": {
+        "pass": true,
+        "early_nps": 15.45,
+        "late_nps": 15.45,
+        "ramp_ratio": 1.0,
+        "max_nps_threshold": 25.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 90,
+            "time_start": 0.0,
+            "time_end": 5720.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 5720.0
+          },
+          {
+            "length": 8,
+            "time_start": 5880.0,
+            "time_end": 6250.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 370.0
+          },
+          {
+            "length": 40,
+            "time_start": 6420.0,
+            "time_end": 8930.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 2510.0
+          },
+          {
+            "length": 31,
+            "time_start": 9110.0,
+            "time_end": 10890.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1780.0
+          },
+          {
+            "length": 18,
+            "time_start": 11060.0,
+            "time_end": 12060.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1000.0
+          },
+          {
+            "length": 48,
+            "time_start": 12230.0,
+            "time_end": 15240.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 3010.0
+          },
+          {
+            "length": 18,
+            "time_start": 15400.0,
+            "time_end": 16410.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1010.0
+          },
+          {
+            "length": 119,
+            "time_start": 16580.0,
+            "time_end": 23850.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 7270.0
+          },
+          {
+            "length": 74,
+            "time_start": 24010.0,
+            "time_end": 28800.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4790.0
+          },
+          {
+            "length": 72,
+            "time_start": 28960.0,
+            "time_end": 33420.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4460.0
+          },
+          {
+            "length": 65,
+            "time_start": 33580.0,
+            "time_end": 37750.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 4170.0
+          },
+          {
+            "length": 96,
+            "time_start": 37910.0,
+            "time_end": 43880.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 146.3,
+            "duration_ms": 5970.0
+          },
+          {
+            "length": 6,
+            "time_start": 44050.0,
+            "time_end": 44330.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 280.0
+          },
+          {
+            "length": 25,
+            "time_start": 44500.0,
+            "time_end": 46040.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1540.0
+          },
+          {
+            "length": 50,
+            "time_start": 46200.0,
+            "time_end": 49100.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 2900.0
+          },
+          {
+            "length": 205,
+            "time_start": 49260.0,
+            "time_end": 62680.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 13420.0
+          },
+          {
+            "length": 20,
+            "time_start": 62850.0,
+            "time_end": 64030.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              -3.0,
+              2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 1180.0
+          },
+          {
+            "length": 159,
+            "time_start": 64200.0,
+            "time_end": 74230.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 10030.0
+          },
+          {
+            "length": 6,
+            "time_start": 74390.0,
+            "time_end": 74630.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 240.0
+          },
+          {
+            "length": 40,
+            "time_start": 74790.0,
+            "time_end": 77450.0,
+            "start": [
+              3.0,
+              -2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": 0.0,
+            "duration_ms": 2660.0
+          }
+        ],
+        "rail_count": 24,
+        "total_rail_notes": 1734
+      },
+      "note_count": 1734,
+      "duration_s": 112.65,
+      "avg_nps": 15.392809587217043,
+      "overall_pass": true
+    }
+  },
+  "overall_pass": false
+}

@@ -46,17 +46,21 @@ def temporal_nms(candidates, window_ms=100.0):
         sorted_cands = [c for c in sorted_cands if not (c["type"] == best["type"] and abs(c["time"] - best["time"]) < window_ms)]
     return sorted(keep, key=lambda x: x["time"])
 
-def generate_batch(track_file, window_ms=100.0):
+def generate_batch(track_file, window_ms=100.0, out_root=None):
     device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
     print(f"[+] Device: {device}")
     
     model = TransformerCausalDecoder(d_model=256, num_layers=4, d_audio=128, d_target=8)
-    ckpt_path = "/Volumes/Second-Brain-1/AI/Synth/models/checkpoints/transformer_phase12b_ep5.pt"
+    checkpoint_name = os.environ.get("RL_CKPT", "transformer_phase12b_rl_ep5.pt")
+    ckpt_path = f"/Volumes/Second-Brain-1/AI/Synth/models/checkpoints/{checkpoint_name}"
     model.load_state_dict(torch.load(ckpt_path, map_location=device, weights_only=True))
     model.to(device)
     model.eval()
 
-    out_root = Path("/Volumes/Second-Brain-1/AI/Synth/evaluation/phase12b/gold_standard")
+    if out_root is None:
+        out_root = Path("/Volumes/Second-Brain-1/AI/Synth/evaluation/phase12b/gold_standard")
+    else:
+        out_root = Path(out_root)
     os.makedirs(out_root, exist_ok=True)
     
     with open(track_file, "r") as f:
@@ -122,6 +126,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SynthRiders Production Generation Engine (v12b)")
     parser.add_argument("--batch", type=str, help="Path to track list file")
     parser.add_argument("--auto-scan", action="store_true", help="Scan the audio_features directory for all unmapped tracks")
+    parser.add_argument("--outdir", type=str, default="/Volumes/Second-Brain-1/AI/Synth/evaluation/phase12b/gold_standard", help="Output directory")
     args = parser.parse_args()
 
     if args.auto_scan:
@@ -132,10 +137,10 @@ if __name__ == "__main__":
         with open(temp_list, "w") as f:
             for t in all_tracks:
                 f.write(str(t) + "\n")
-        generate_batch(temp_list, window_ms=NMS_WINDOW)
+        generate_batch(temp_list, window_ms=NMS_WINDOW, out_root=args.outdir)
     elif args.batch:
-        generate_batch(args.batch, window_ms=NMS_WINDOW)
+        generate_batch(args.batch, window_ms=NMS_WINDOW, out_root=args.outdir)
     else:
         # Default fallback to Gold Standard subset
         track_list_file = "/Volumes/Second-Brain-1/AI/Synth/evaluation/gold_standard_tracks.txt"
-        generate_batch(track_list_file, window_ms=NMS_WINDOW)
+        generate_batch(track_list_file, window_ms=NMS_WINDOW, out_root=args.outdir)

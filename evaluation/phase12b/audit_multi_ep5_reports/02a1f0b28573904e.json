@@ -1,0 +1,478 @@
+{
+  "uuid": "02a1f0b28573904e",
+  "version": "AIv12b.100ms",
+  "timestamp": "2026-04-28T06:30:52.183516Z",
+  "difficulties": {
+    "Easy": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 132,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.526,
+        "right_pct": 0.474,
+        "center_count": 0,
+        "imbalance_score": 0.053
+      },
+      "density_ramp": {
+        "pass": false,
+        "early_nps": 14.76,
+        "late_nps": 16.15,
+        "ramp_ratio": 1.09,
+        "max_nps_threshold": 9.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 20,
+            "time_start": 0.0,
+            "time_end": 1260.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1260.0
+          },
+          {
+            "length": 10,
+            "time_start": 1420.0,
+            "time_end": 1910.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 490.0
+          },
+          {
+            "length": 103,
+            "time_start": 2070.0,
+            "time_end": 8670.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 6600.0
+          }
+        ],
+        "rail_count": 3,
+        "total_rail_notes": 133
+      },
+      "note_count": 133,
+      "duration_s": 8.67,
+      "avg_nps": 15.340253748558247,
+      "overall_pass": false
+    },
+    "Normal": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 131,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.523,
+        "right_pct": 0.477,
+        "center_count": 0,
+        "imbalance_score": 0.045
+      },
+      "density_ramp": {
+        "pass": false,
+        "early_nps": 14.76,
+        "late_nps": 15.69,
+        "ramp_ratio": 1.06,
+        "max_nps_threshold": 13.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 20,
+            "time_start": 0.0,
+            "time_end": 1260.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1260.0
+          },
+          {
+            "length": 10,
+            "time_start": 1420.0,
+            "time_end": 1910.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 490.0
+          },
+          {
+            "length": 102,
+            "time_start": 2070.0,
+            "time_end": 8670.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 6600.0
+          }
+        ],
+        "rail_count": 3,
+        "total_rail_notes": 132
+      },
+      "note_count": 132,
+      "duration_s": 8.67,
+      "avg_nps": 15.22491349480969,
+      "overall_pass": false
+    },
+    "Hard": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 132,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.526,
+        "right_pct": 0.474,
+        "center_count": 0,
+        "imbalance_score": 0.053
+      },
+      "density_ramp": {
+        "pass": true,
+        "early_nps": 14.76,
+        "late_nps": 16.15,
+        "ramp_ratio": 1.09,
+        "max_nps_threshold": 16.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 20,
+            "time_start": 0.0,
+            "time_end": 1260.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1260.0
+          },
+          {
+            "length": 10,
+            "time_start": 1420.0,
+            "time_end": 1910.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 490.0
+          },
+          {
+            "length": 103,
+            "time_start": 2070.0,
+            "time_end": 8670.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 6600.0
+          }
+        ],
+        "rail_count": 3,
+        "total_rail_notes": 133
+      },
+      "note_count": 133,
+      "duration_s": 8.67,
+      "avg_nps": 15.340253748558247,
+      "overall_pass": true
+    },
+    "Expert": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 132,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.526,
+        "right_pct": 0.474,
+        "center_count": 0,
+        "imbalance_score": 0.053
+      },
+      "density_ramp": {
+        "pass": true,
+        "early_nps": 14.76,
+        "late_nps": 16.15,
+        "ramp_ratio": 1.09,
+        "max_nps_threshold": 19.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 20,
+            "time_start": 0.0,
+            "time_end": 1260.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1260.0
+          },
+          {
+            "length": 10,
+            "time_start": 1420.0,
+            "time_end": 1910.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 490.0
+          },
+          {
+            "length": 103,
+            "time_start": 2070.0,
+            "time_end": 8670.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 6600.0
+          }
+        ],
+        "rail_count": 3,
+        "total_rail_notes": 133
+      },
+      "note_count": 133,
+      "duration_s": 8.67,
+      "avg_nps": 15.340253748558247,
+      "overall_pass": true
+    },
+    "Master": {
+      "bounds": {
+        "oob_count": 0,
+        "oob_indices": [],
+        "pass": true
+      },
+      "reachability": {
+        "pass": true,
+        "violation_count": 0,
+        "total_pairs": 132,
+        "violations": []
+      },
+      "flow": {
+        "pass": true,
+        "avg_ang_deg": 0.0,
+        "max_ang_deg": 0.0,
+        "spike_count": 0,
+        "spikes": []
+      },
+      "balance": {
+        "pass": true,
+        "left_pct": 0.526,
+        "right_pct": 0.474,
+        "center_count": 0,
+        "imbalance_score": 0.053
+      },
+      "density_ramp": {
+        "pass": true,
+        "early_nps": 14.76,
+        "late_nps": 16.15,
+        "ramp_ratio": 1.09,
+        "max_nps_threshold": 25.0
+      },
+      "co_located": {
+        "pass": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "rail_candidates": {
+        "rails": [
+          {
+            "length": 20,
+            "time_start": 0.0,
+            "time_end": 1260.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 1260.0
+          },
+          {
+            "length": 10,
+            "time_start": 1420.0,
+            "time_end": 1910.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 490.0
+          },
+          {
+            "length": 103,
+            "time_start": 2070.0,
+            "time_end": 8670.0,
+            "start": [
+              -3.0,
+              2.0
+            ],
+            "end": [
+              3.0,
+              -2.0
+            ],
+            "direction_deg": -33.7,
+            "duration_ms": 6600.0
+          }
+        ],
+        "rail_count": 3,
+        "total_rail_notes": 133
+      },
+      "note_count": 133,
+      "duration_s": 8.67,
+      "avg_nps": 15.340253748558247,
+      "overall_pass": true
+    }
+  },
+  "overall_pass": false
+}
