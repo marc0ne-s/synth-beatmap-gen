@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>◈ SYNTHRIDERS COMMAND CENTER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="./chart.min.js"></script>
+  <script src="./three.min.js"></script>
+  <style>
+    :root {
+      --bg-deep: #05070a;
+      --bg: #080c14;
+      --bg-elev: #0e1420;
+      --bg-card: #131b2c;
+      --bg-glass: rgba(19, 27, 44, 0.6);
+      --border: rgba(100, 160, 255, 0.08);
+      --border-glow: rgba(100, 160, 255, 0.2);
+      --text: #eaf0f8;
+      --text-dim: #6b7d9a;
+      --text-faint: #3a4d6b;
+      --green: #00e5a0;
+      --green-glow: rgba(0, 229, 160, 0.3);
+      --green-dim: rgba(0, 229, 160, 0.1);
+      --amber: #ffa726;
+      --amber-glow: rgba(255, 167, 38, 0.3);
+      --amber-dim: rgba(255, 167, 38, 0.1);
+      --red: #ff5252;
+      --red-glow: rgba(255, 82, 82, 0.3);
+      --red-dim: rgba(255, 82, 82, 0.1);
+      --blue: #42a5f5;
+      --blue-glow: rgba(66, 165, 245, 0.3);
+      --blue-dim: rgba(66, 165, 245, 0.1);
+      --magenta: #e040fb;
+      --magenta-glow: rgba(224, 64, 251, 0.3);
+      --cyan: #00e5ff;
+      --cyan-glow: rgba(0, 229, 255, 0.3);
+    }
+    
+    * { margin:0; padding:0; box-sizing:border-box; }
+    
+    html, body {
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════════════════════════════ LAYERS ════════════════════════════════════ */
+    #particles-canvas {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      z-index: 0; pointer-events: none;
+    }
+    .grid-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background-image: 
+        linear-gradient(rgba(66,165,245,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(66,165,245,0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 1; pointer-events: none;
+    }
+    .scanlines {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 3px);
+      z-index: 2; pointer-events: none; opacity: 0.35;
+    }
+    .vignette {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: radial-gradient(ellipse at 50% 0%, transparent 40%, var(--bg-deep) 90%);
+      z-index: 3; pointer-events: none;
+    }
+    
+    .app { position: relative; z-index: 10; }
+
+    /* ════════════════════════════════════ HEADER ════════════════════════════════════ */
+    .header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.5rem 2.5rem; position: fixed; top:0; left:0; right:0;
+      background: linear-gradient(180deg, var(--bg-deep) 60%, transparent);
+      z-index: 100;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .brand-orb {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--magenta), var(--blue));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; box-shadow: 0 0 30px var(--magenta-glow);
+      animation: orb-pulse 3s ease-in-out infinite;
+      position: relative;
+    }
+    .brand-orb::after {
+      content: ''; position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px solid transparent;
+      background: linear-gradient(135deg, var(--magenta), var(--blue)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0.4; animation: orb-spin 4s linear infinite;
+    }
+    @keyframes orb-pulse { 0%,100%{box-shadow:0 0 20px var(--magenta-glow)} 50%{box-shadow:0 0 50px var(--blue-glow)} }
+    @keyframes orb-spin { to{transform:rotate(360deg)} }
+    
+    .brand h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.3rem; font-weight: 700; letter-spacing: -0.5px;
+    }
+    .brand h1 .accent { color: var(--cyan); }
+    .brand h1 .dim { color: var(--text-dim); font-weight: 300; }
+    .brand p { font-size: 0.72rem; color: var(--text-faint); margin-top: 2px; letter-spacing: 0.5px; }
+    
+    .status-cluster {
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .pill {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1rem; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px;
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    }
+    .pill-alive {
+      background: rgba(0, 229, 160, 0.08); border: 1px solid rgba(0, 229, 160, 0.2);
+      color: var(--green);
+    }
+    .pill-pending {
+      background: rgba(255, 167, 38, 0.08); border: 1px solid rgba(255, 167, 38, 0.2);
+      color: var(--amber);
+    }
+    .pulse-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 8px var(--green);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .pulse-dot.amber { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+    
+    .clock { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-dim); }
+
+    /* ════════════════════════════════════ MAIN ════════════════════════════════════ */
+    .main { padding: 6rem 2.5rem 2rem; max-width: 1440px; margin: 0 auto; }
+    
+    /* Pipeline ribbons */
+    .pipeline-ribbon {
+      display: flex; gap: 0.75rem; margin-bottom: 2rem;
+    }
+    .ribbon-item {
+      flex: 1; position: relative; padding: 1.25rem 1rem;
+      border-radius: 14px; text-align: center;
+      transition: all 0.3s ease; overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+    .ribbon-item::before {
+      content: ''; position: absolute; top:0; left:0; right:0; height: 3px;
+    }
+    .ribbon-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent 60%);
+      pointer-events: none;
+    }
+    .rib-done {
+      background: rgba(0, 229, 160, 0.04);
+      border: 1px solid rgba(0, 229, 160, 0.15);
+    }
+    .rib-done::before { background: var(--green); opacity: 0.6; }
+    .rib-done .rib-icon { color: var(--green); }
+    .rib-done .rib-name { color: var(--green); }
+    .rib-active {
+      background: rgba(255, 167, 38, 0.04);
+      border: 1px solid rgba(255, 167, 38, 0.25);
+      animation: rib-glow 3s ease-in-out infinite;
+      box-shadow: 0 0 40px rgba(255, 167, 38, 0.08), inset 0 0 40px rgba(255, 167, 38, 0.03);
+    }
+    .rib-active::before { background: var(--amber); animation: bar-shimmer 2s ease-in-out infinite; }
+    .rib-active .rib-icon { color: var(--amber); animation: icon-pulse 2s ease-in-out infinite; }
+    .rib-active .rib-name { color: var(--amber); }
+    .rib-pending { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); }
+    .rib-pending::before { background: transparent; }
+    .rib-pending .rib-icon { color: var(--text-faint); }
+    .rib-pending .rib-name { color: var(--text-faint); }
+    .rib-locked { background: rgba(255, 82, 82, 0.02); border: 1px solid rgba(255, 82, 82, 0.08); opacity: 0.5; }
+    .rib-locked .rib-icon { color: var(--red); }
+    .rib-icon { font-size: 1.3rem; margin-bottom: 0.4rem; }
+    .rib-name { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
+    .rib-meta { font-size: 0.62rem; color: var(--text-faint); margin-top: 0.3rem; }
+    @keyframes rib-glow { 0%,100%{box-shadow:0 0 30px rgba(255,167,38,0.05),inset 0 0 30px rgba(255,167,38,0.02)} 50%{box-shadow:0 0 60px rgba(255,167,38,0.12),inset 0 0 50px rgba(255,167,38,0.04)} }
+    @keyframes bar-shimmer { 0%,100%{opacity:0.4} 50%{opacity:1} }
+    @keyframes icon-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+
+    /* Dashboard grid */
+    .dash-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; margin-bottom: 1.5rem; }
+    
+    .glass-card {
+      background: linear-gradient(145deg, rgba(19, 27, 44, 0.8), rgba(8, 12, 20, 0.9));
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 1.5rem;
+      position: relative; overflow: hidden;
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .glass-card:hover { border-color: var(--border-glow); transform: translateY(-1px); }
+    .glass-card::before {
+      content: ''; position: absolute; top:0; left:0; right:0; height: 2px;
+      opacity: 0.5;
+    }
+    
+    .card-accent-green::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+    .card-accent-amber::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+    .card-accent-red::before { background: linear-gradient(90deg, transparent, var(--red), transparent); }
+    .card-accent-blue::before { background: linear-gradient(90deg, transparent, var(--blue), transparent); }
+    .card-accent-magenta::before { background: linear-gradient(90deg, transparent, var(--magenta), transparent); }
+
+    .card-header-row {
+      display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;
+    }
+    .card-title {
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--text-dim); font-weight: 600;
+    }
+    .card-badge {
+      font-size: 0.62rem; padding: 0.2rem 0.55rem;
+      border-radius: 6px; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .badge-done { background: var(--green-dim); color: var(--green); }
+    .badge-active { background: var(--amber-dim); color: var(--amber); }
+    .badge-abort { background: var(--red-dim); color: var(--red); }
+    .badge-live { background: var(--green-dim); color: var(--green); box-shadow: 0 0 10px var(--green-dim); }
+
+    /* Gauge ring */
+    .gauge-wrap { display: flex; align-items: center; gap: 1.25rem; }
+    .gauge-ring {
+      width: 110px; height: 110px; position: relative; flex-shrink: 0;
+    }
+    .gauge-ring canvas { position: absolute; top:0; left:0; }
+    .gauge-inner {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .gauge-val { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 800; line-height: 1; }
+    .gauge-val.green { color: var(--green); text-shadow: 0 0 20px var(--green-glow); }
+    .gauge-val.amber { color: var(--amber); text-shadow: 0 0 20px var(--amber-glow); }
+    .gauge-val.red { color: var(--red); text-shadow: 0 0 20px var(--red-glow); }
+    .gauge-suffix { font-size: 0.7rem; color: var(--text-faint); }
+    .gauge-stats { flex: 1; min-width: 0; }
+    .stat-row { display: flex; justify-content: space-between; padding: 0.35rem 0; border-bottom: 1px solid rgba(100,160,255,0.05); font-size: 0.78rem; }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--text-dim); }
+    .stat-val { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+
+    /* Sparkline area */
+    .chart-wrap { height: 70px; position: relative; margin-top: 1rem; }
+    
+    /* Comparison bar */
+    .comp-wrap { padding-top: 0.5rem; }
+    .comp-item { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.75rem; }
+    .comp-name { width: 70px; font-size: 0.75rem; font-weight: 700; text-align: right; flex-shrink: 0; }
+    .comp-name.ph10 { color: var(--amber); }
+    .comp-name.ph11 { color: var(--red); }
+    .comp-name.goal { color: var(--green); }
+    .comp-track {
+      flex: 1; height: 32px; background: rgba(255,255,255,0.02);
+      border-radius: 8px; position: relative; overflow: hidden;
+    }
+    .comp-fill {
+      height: 100%; border-radius: 8px;
+      display: flex; align-items: center; padding-left: 12px;
+      font-size: 0.72rem; font-weight: 700;
+      transition: width 2s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative; overflow: hidden;
+    }
+    .comp-fill::after {
+      content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    @keyframes shimmer { 0%,100%{transform:translateX(-100%)} 50%{transform:translateX(100%)} }
+    .comp-fill.ph10 { background: linear-gradient(90deg, rgba(255,167,38,0.35), rgba(255,167,38,0.12)); color: var(--amber); }
+    .comp-fill.ph11 { background: linear-gradient(90deg, rgba(255,82,82,0.35), rgba(255,82,82,0.12)); color: var(--red); }
+    .comp-fill.goal { background: repeating-linear-gradient(45deg, rgba(0,229,160,0.06), rgba(0,229,160,0.06) 4px, transparent 4px, transparent 8px); border: 1px dashed rgba(0,229,160,0.2); color: var(--green); }
+    .comp-val { position: absolute; right: 12px; font-size: 0.72rem; color: var(--text-dim); font-weight: 500; }
+
+    /* Terminal block */
+    .terminal {
+      background: rgba(5, 7, 10, 0.95);
+      border-radius: 16px; padding: 1.5rem;
+      border: 1px solid rgba(100,160,255,0.06);
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; line-height: 1.65;
+      position: relative; overflow: hidden;
+    }
+    .terminal::before {
+      content: ''; position: absolute; top:0; left:0; right:0; height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--blue), var(--magenta));
+      opacity: 0.3;
+    }
+    .term-row { display: flex; gap: 0.5rem; margin-bottom: 0.15rem; }
+    .term-prompt { color: var(--green); font-weight: 600; flex-shrink: 0; }
+    .term-cmd { color: var(--text); }
+    .term-out { color: var(--text-dim); }
+    .term-accent { color: var(--amber); }
+    .term-err { color: var(--red); }
+    .term-ok { color: var(--green); }
+    .term-tag { display: inline-block; width: 30px; font-weight: 700; }
+    .term-cursor {
+      display: inline-block; width: 8px; height: 16px; background: var(--text);
+      animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 2px;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* 3D container */
+    .three-wrap {
+      width: 100%; height: 200px; border-radius: 12px; overflow: hidden;
+      margin-top: 0.5rem; position: relative;
+    }
+    .three-wrap canvas { width: 100% !important; height: 100% !important; }
+    .three-overlay {
+      position: absolute; bottom: 8px; left: 12px;
+      font-size: 0.62rem; color: var(--text-faint); pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+
+    /* Progress strip */
+    .progress-strip {
+      display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem;
+    }
+    .progress-bar {
+      flex: 1; height: 6px; background: rgba(255,255,255,0.04);
+      border-radius: 3px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--magenta), var(--blue));
+      width: 10%; transition: width 1s ease;
+      box-shadow: 0 0 10px var(--blue-glow);
+      animation: flow-glow 2s ease-in-out infinite;
+    }
+    @keyframes flow-glow { 0%,100%{box-shadow:0 0 5px var(--blue-glow)} 50%{box-shadow:0 0 15px var(--magenta-glow)} }
+
+    /* Tooltip */
+    [data-tip] { position: relative; }
+    [data-tip]:hover::after {
+      content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 50%;
+      transform: translateX(-50%); background: var(--bg-elev); color: var(--text);
+      padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.72rem;
+      white-space: nowrap; border: 1px solid var(--border);
+      pointer-events: none; opacity: 0; animation: tip-in 0.15s ease forwards;
+      z-index: 1000;
+    }
+    @keyframes tip-in { to { opacity: 1; } }
+
+    /* Responsive */
+    @media (max-width: 1100px) { .dash-grid { grid-template-columns: 1fr; } .col-4, .col-5, .col-6, .col-7, .col-8, .col-12 { grid-column: span 12; } .pipeline-ribbon { flex-wrap: wrap; } .ribbon-item { flex: 1 1 30%; } }
+    
+    .col-3 { grid-column: span 3; }
+    .col-4 { grid-column: span 4; }
+    .col-5 { grid-column: span 5; }
+    .col-6 { grid-column: span 6; }
+    .col-7 { grid-column: span 7; }
+    .col-8 { grid-column: span 8; }
+    .col-12 { grid-column: span 12; }
+  </style>
+</head>
+<body>
+  <canvas id="particles-canvas"></canvas>
+  <div class="grid-overlay"></div>
+  <div class="scanlines"></div>
+  <div class="vignette"></div>
+
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <div class="brand-orb">◈</div>
+        <div>
+          <h1><span class="accent">SYNTH</span>RIDERS <span class="dim">COMMAND CENTER</span></h1>
+          <p>Phase 12 Full Corpus Scale-Up · Apple M4 Pro</p>
+        </div>
+      </div>
+      <div class="status-cluster">
+        <div class="pill pill-alive"><div class="pulse-dot"></div>PID 34021 ACTIVE</div>
+        <div class="pill pill-pending"><div class="pulse-dot amber"></div>EPOCH 1/10</div>
+        <div class="clock" id="clock">--:--:--</div>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Pipeline -->
+      <div class="pipeline-ribbon">
+        <div class="ribbon-item rib-done" data-tip="10,918 maps parsed">
+          <div class="rib-icon">✦</div>
+          <div class="rib-name">DATA</div>
+          <div class="rib-meta">10,918 maps</div>
+        </div>
+        <div class="ribbon-item rib-done" data-tip="4M parameters, causal attention">
+          <div class="rib-icon">◎</div>
+          <div class="rib-name">MODEL</div>
+          <div class="rib-meta">4M params</div>
+        </div>
+        <div class="ribbon-item rib-active" data-tip="PID 34021 · 8,861 map corpus">
+          <div class="rib-icon">◉</div>
+          <div class="rib-name">TRAINING</div>
+          <div class="rib-meta">Epoch 1/10</div>
+        </div>
+        <div class="ribbon-item rib-pending" data-tip="Waiting for Phase 12 completion">
+          <div class="rib-icon">○</div>
+          <div class="rib-name">EVAL</div>
+          <div class="rib-meta">Pending</div>
+        </div>
+        <div class="ribbon-item rib-locked" data-tip="Requires Phase 12 success">
+          <div class="rib-icon">🔒</div>
+          <div class="rib-name">EDITOR</div>
+          <div class="rib-meta">Phase 13</div>
+        </div>
+      </div>
+
+      <!-- Metrics trio -->
+      <div class="dash-grid">
+        <!-- Phase 10 -->
+        <div class="glass-card card-accent-amber col-4">
+          <div class="card-header-row">
+            <span class="card-title">Phase 10 · Transformer Pilot</span>
+            <span class="card-badge badge-done">BEST</span>
+          </div>
+          <div class="gauge-wrap">
+            <div class="gauge-ring">
+              <canvas id="g1" width="220" height="220"></canvas>
+              <div class="gauge-inner">
+                <div class="gauge-val amber">53.6</div>
+                <div class="gauge-suffix">%</div>
+              </div>
+            </div>
+            <div class="gauge-stats">
+              <div class="stat-row"><span class="stat-label">Recall@50ms</span><span class="stat-val" style="color:var(--amber)">53.61%</span></div>
+              <div class="stat-row"><span class="stat-label">Precision</span><span class="stat-val" style="color:var(--text-dim)">37.88%</span></div>
+              <div class="stat-row"><span class="stat-label">Pos MSE</span><span class="stat-val" style="color:var(--red)">19.82</span></div>
+              <div class="stat-row"><span class="stat-label">Predicted</span><span class="stat-val" style="color:var(--text-dim)">521,427</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 11 -->
+        <div class="glass-card card-accent-red col-4">
+          <div class="card-header-row">
+            <span class="card-title">Phase 11 · Hybrid Cascade</span>
+            <span class="card-badge badge-abort">ABORTED</span>
+          </div>
+          <div class="gauge-wrap">
+            <div class="gauge-ring">
+              <canvas id="g2" width="220" height="220"></canvas>
+              <div class="gauge-inner">
+                <div class="gauge-val red">41.3</div>
+                <div class="gauge-suffix">%</div>
+              </div>
+            </div>
+            <div class="gauge-stats">
+              <div class="stat-row"><span class="stat-label">Recall@50ms</span><span class="stat-val" style="color:var(--red)">41.30%</span></div>
+              <div class="stat-row"><span class="stat-label">Precision</span><span class="stat-val" style="color:var(--text-dim)">40.63%</span></div>
+              <div class="stat-row"><span class="stat-label">Pos MSE</span><span class="stat-val" style="color:var(--green)">13.57</span></div>
+              <div class="stat-row"><span class="stat-label">Predicted</span><span class="stat-val" style="color:var(--text-dim)">374,428</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 12 Live -->
+        <div class="glass-card card-accent-green col-4">
+          <div class="card-header-row">
+            <span class="card-title">Phase 12 · Full Transformer</span>
+            <span class="card-badge badge-live">LIVE</span>
+          </div>
+          <div class="gauge-wrap">
+            <div class="gauge-ring">
+              <canvas id="g3" width="220" height="220"></canvas>
+              <div class="gauge-inner">
+                <div class="gauge-val green" id="livePct">?</div>
+                <div class="gauge-suffix" id="liveSuffix">TBD</div>
+              </div>
+            </div>
+            <div class="gauge-stats">
+              <div class="stat-row"><span class="stat-label">Epoch</span><span class="stat-val" style="color:var(--green)">1 / 10</span></div>
+              <div class="stat-row"><span class="stat-label">Batch</span><span class="stat-val" style="color:var(--amber)">~20</span></div>
+              <div class="stat-row"><span class="stat-label">Loss</span><span class="stat-val" style="color:var(--text-dim)">81.3</span></div>
+              <div class="stat-row"><span class="stat-label">ETA</span><span class="stat-val" style="color:var(--blue)">12-15h</span></div>
+            </div>
+          </div>
+          <div class="progress-strip">
+            <span style="font-size:0.65rem;color:var(--text-faint)">Epoch 1</span>
+            <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
+            <span style="font-size:0.65rem;color:var(--text-faint)">10%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Comparison + Telemetry + 3D -->
+      <div class="dash-grid">
+        <!-- Comparison chart -->
+        <div class="glass-card card-accent-blue col-5">
+          <div class="card-header-row">
+            <span class="card-title">Recall@50ms Comparison</span>
+            <span style="font-size:0.72rem;color:var(--text-dim)">Target: 85%</span>
+          </div>
+          <div class="comp-wrap">
+            <div class="comp-item">
+              <div class="comp-name ph10">PH 10</div>
+              <div class="comp-track">
+                <div class="comp-fill ph10" style="width:53.6%" id="bar10">53.6%</div>
+                <div class="comp-val">CURRENT BEST</div>
+              </div>
+            </div>
+            <div class="comp-item">
+              <div class="comp-name ph11">PH 11</div>
+              <div class="comp-track">
+                <div class="comp-fill ph11" style="width:41.3%" id="bar11">41.3%</div>
+                <div class="comp-val">LSTM CHOKE</div>
+              </div>
+            </div>
+            <div class="comp-item" style="margin-top:0.75rem">
+              <div class="comp-name goal">GOAL</div>
+              <div class="comp-track">
+                <div class="comp-fill goal" style="width:85%" id="barGoal"></div>
+                <div class="comp-val" style="color:var(--green)">85%</div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="lossChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Telemetry -->
+        <div class="glass-card card-accent-magenta col-4">
+          <div class="card-header-row">
+            <span class="card-title">Training Telemetry</span>
+            <span style="font-size:0.62rem;background:var(--magenta-dim);color:var(--magenta);padding:0.15rem 0.5rem;border-radius:4px">MPS</span>
+          </div>
+          <div class="gauge-stats">
+            <div class="stat-row"><span class="stat-label">Process ID</span><span class="stat-val" style="color:var(--magenta)">34021</span></div>
+            <div class="stat-row"><span class="stat-label">CPU</span><span class="stat-val" style="color:var(--amber)">18.5%</span></div>
+            <div class="stat-row"><span class="stat-label">Memory</span><span class="stat-val" style="color:var(--text-dim)">~650 MB</span></div>
+            <div class="stat-row"><span class="stat-label">Duration</span><span class="stat-val" style="color:var(--green)">~1h 10m</span></div>
+            <div class="stat-row"><span class="stat-label">Accelerator</span><span class="stat-val" style="color:var(--blue)">Apple MPS</span></div>
+            <div class="stat-row"><span class="stat-label">Batch Size</span><span class="stat-val" style="color:var(--text-dim)">64 (8×8)</span></div>
+          </div>
+          <div class="progress-strip">
+            <span style="font-size:0.65rem;color:var(--text-faint)">Corpus</span>
+            <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+            <span style="font-size:0.65rem;color:var(--text-faint)">8,861</span>
+          </div>
+        </div>
+
+        <!-- 3D Note Globe -->
+        <div class="glass-card card-accent-green col-3">
+          <div class="card-header-row">
+            <span class="card-title">3D Preview</span>
+            <span class="card-badge badge-done">DEMO</span>
+          </div>
+          <div class="three-wrap" id="threeContainer">
+            <div class="three-overlay">Notes · Rails · Walls</div>
+          </div>
+          <div class="gauge-stats" style="margin-top:0.75rem">
+            <div class="stat-row"><span class="stat-label">Entities</span><span class="stat-val" style="color:var(--cyan)">~900</span></div>
+            <div class="stat-row"><span class="stat-label">Rotation</span><span class="stat-val" style="color:var(--text-dim)">Auto</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal -->
+      <div class="dash-grid">
+        <div class="col-12">
+          <div class="terminal">
+            <div class="term-row"><span class="term-prompt">herbb@synth:~$</span> <span class="term-cmd">phase12 status</span></div>
+            <div class="term-row"><span class="term-out">Architecture: Pure Transformer (LSTM purged)</span></div>
+            <div class="term-row"><span class="term-out">Acoustic memory: Loaded from Phase 10 ep5</span></div>
+            <div class="term-row"><span class="term-out">Spatial heads: Kaiming reset at epoch 0</span></div>
+            <div class="term-row"><span class="term-out">Activation: tanh on position / velocity</span></div>
+            <div class="term-row"><span class="term-out">LR: Discriminative · heads 5e-4 · body 1e-4</span></div>
+            <div class="term-row" style="margin-top:1rem"><span class="term-prompt">herbb@synth:~$</span> <span class="term-cmd">blockers</span></div>
+            <div class="term-row"><span class="term-tag term-accent">[1]</span> <span class="term-out">GPU contention · Single MPS · sequential training only</span></div>
+            <div class="term-row"><span class="term-tag term-accent">[2]</span> <span class="term-out">VR testing · Parallels license · decision pending</span></div>
+            <div class="term-row"><span class="term-tag term-accent">[3]</span> <span class="term-out">EP5 crash recovery · Using ep4 as eval fallback</span></div>
+            <div class="term-row" style="margin-top:1rem"><span class="term-prompt">herbb@synth:~$</span> <span class="term-cmd"></span><span class="term-cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ════════════════════════════════════ PARTICLES ════════════════════════════════════
+    (function() {
+      const canvas = document.getElementById('particles-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const N = 80;
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      resize(); window.addEventListener('resize', resize);
+      
+      class Particle {
+        constructor() { this.reset(); }
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = canvas.height + 20;
+          this.r = Math.random() * 1.5 + 0.5;
+          this.vx = (Math.random() - 0.5) * 0.3;
+          this.vy = -Math.random() * 0.8 - 0.2;
+          this.alpha = Math.random() * 0.4 + 0.1;
+          this.hue = Math.random() > 0.5 ? 180 : 280; // cyan or magenta
+        }
+        update() {
+          this.x += this.vx; this.y += this.vy;
+          this.alpha *= 0.9995;
+          if (this.y < -20 || this.alpha < 0.01) this.reset();
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = `hsla(${this.hue}, 80%, 60%, ${this.alpha})`;
+          ctx.fill();
+        }
+      }
+      for (let i = 0; i < N; i++) particles.push(new Particle());
+      particles.forEach(p => { p.y = Math.random() * canvas.height; });
+      
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        // Draw connections
+        for (let i = 0; i < N; i++) {
+          for (let j = i + 1; j < N; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const d = Math.sqrt(dx*dx + dy*dy);
+            if (d < 120) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(66,165,245,${0.03 * (1 - d/120)})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // ════════════════════════════════════ GAUGES ════════════════════════════════════
+    function drawGauge(canvasId, pct, colorVar) {
+      const cvs = document.getElementById(canvasId);
+      const ctx = cvs.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const w = cvs.width = 220 * dpr; const h = cvs.height = 220 * dpr;
+      cvs.style.width = '110px'; cvs.style.height = '110px';
+      ctx.scale(dpr, dpr);
+      const cx = 110, cy = 110, r = 84;
+      
+      // Track
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0.75 * Math.PI, 2.25 * Math.PI); 
+      ctx.strokeStyle = 'rgba(255,255,255,0.03)'; ctx.lineWidth = 12; ctx.stroke();
+      
+      // Glow track
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0.75 * Math.PI, 0.75 * Math.PI + (pct/100) * 1.5 * Math.PI);
+      ctx.strokeStyle = colorVar; ctx.lineWidth = 12; ctx.lineCap = 'round';
+      ctx.shadowColor = colorVar; ctx.shadowBlur = 20; ctx.stroke();
+      ctx.shadowBlur = 0;
+      
+      // Ticks
+      for (let i = 0; i <= 20; i++) {
+        const a = 0.75 * Math.PI + (i / 20) * 1.5 * Math.PI;
+        const x1 = cx + Math.cos(a) * (r - 18);
+        const y1 = cy + Math.sin(a) * (r - 18);
+        const x2 = cx + Math.cos(a) * (r - 14);
+        const y2 = cy + Math.sin(a) * (r - 14);
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
+        ctx.strokeStyle = i % 5 === 0 ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.06)';
+        ctx.lineWidth = i % 5 === 0 ? 2 : 1; ctx.stroke();
+      }
+    }
+
+    function hexToRgb(hex) {
+      const r = parseInt(hex.slice(1,3), 16);
+      const g = parseInt(hex.slice(3,5), 16);
+      const b = parseInt(hex.slice(5,7), 16);
+      return `rgb(${r},${g},${b})`;
+    }
+    
+    const greenRgb = getComputedStyle(document.documentElement).getPropertyValue('--green').trim() || '#00e5a0';
+    const amberRgb = getComputedStyle(document.documentElement).getPropertyValue('--amber').trim() || '#ffa726';
+    const redRgb = getComputedStyle(document.documentElement).getPropertyValue('--red').trim() || '#ff5252';
+    
+    setTimeout(() => {
+      drawGauge('g1', 53.6, amberRgb);
+      drawGauge('g2', 41.3, redRgb);
+      drawGauge('g3', 10, greenRgb);
+    }, 100);
+
+    // ════════════════════════════════════ Chart.js ════════════════════════════════════
+    setTimeout(() => {
+      const ctx = document.getElementById('lossChart').getContext('2d');
+      const data = Array.from({length:30}, (_, i) => Math.exp(-i/8)*60 + Math.random()*15 + 5);
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: data.map((_,i) => i*800),
+          datasets: [{
+            data: data,
+            borderColor: '#ffa726',
+            backgroundColor: 'rgba(255,167,38,0.05)',
+            borderWidth: 2,
+            pointRadius: 0,
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: false },
+            y: { display: false, min: 0, max: 80 }
+          },
+          layout: { padding: { top: 5, bottom: 0 } }
+        }
+      });
+    }, 200);
+
+    // ════════════════════════════════════ Three.js ════════════════════════════════════
+    (function() {
+      const container = document.getElementById('threeContainer');
+      const w = container.clientWidth, h = container.clientHeight;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, w/h, 0.1, 100);
+      camera.position.z = 5;
+      
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(w, h);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+      
+      // Floating note orbs
+      const orbs = [];
+      const colors = [0x00e5ff, 0xffa726, 0xe040fb, 0x00e5a0];
+      for (let i = 0; i < 50; i++) {
+        const geo = new THREE.SphereGeometry(0.06, 8, 8);
+        const mat = new THREE.MeshBasicMaterial({
+          color: colors[i % colors.length],
+          transparent: true, opacity: 0.6 + Math.random() * 0.3
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(
+          (Math.random() - 0.5) * 4,
+          (Math.random() - 0.5) * 2,
+          (Math.random() - 0.5) * 2
+        );
+        mesh.userData = {
+          vx: (Math.random() - 0.5) * 0.01,
+          vy: (Math.random() - 0.5) * 0.01,
+          vz: (Math.random() - 0.5) * 0.005,
+          orbit: Math.random() * Math.PI * 2,
+          orbitSpeed: 0.003 + Math.random() * 0.005
+        };
+        scene.add(mesh);
+        orbs.push(mesh);
+      }
+      
+      // Wireframe grid
+      const gridGeo = new THREE.PlaneGeometry(6, 6, 20, 20);
+      const gridMat = new THREE.MeshBasicMaterial({
+        color: 0x42a5f5, wireframe: true, transparent: true, opacity: 0.08
+      });
+      const grid = new THREE.Mesh(gridGeo, gridMat);
+      grid.rotation.x = -Math.PI / 2;
+      grid.position.y = -1;
+      scene.add(grid);
+      
+      function animate() {
+        requestAnimationFrame(animate);
+        orbs.forEach(o => {
+          o.position.x += o.userData.vx;
+          o.position.y += o.userData.vy;
+          o.position.z += o.userData.vz;
+          
+          const t = Date.now() * 0.001;
+          o.position.x += Math.sin(t + o.userData.orbit) * 0.003;
+          o.position.y += Math.cos(t * 0.7 + o.userData.orbit) * 0.003;
+          
+          if (Math.abs(o.position.x) > 2.5 || Math.abs(o.position.y) > 1.5 || Math.abs(o.position.z) > 1.5) {
+            o.position.set((Math.random()-.5)*2, (Math.random()-.5)*1.5, (Math.random()-.5)*1.5);
+          }
+        });
+        camera.position.x = Math.sin(Date.now() * 0.0005) * 2;
+        camera.position.z = 4 + Math.cos(Date.now() * 0.0005) * 1.5;
+        camera.lookAt(0, 0, 0);
+        renderer.render(scene, camera);
+      }
+      animate();
+      
+      new ResizeObserver(() => {
+        const w = container.clientWidth, h = container.clientHeight;
+        camera.aspect = w/h; camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      }).observe(container);
+    })();
+
+    // ════════════════════════════════════ CLOCK ════════════════════════════════════
+    setInterval(() => {
+      document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-AU', {hour12:false});
+    }, 1000);
+
+    // ════════════════════════════════════ LIVE FETCH ════════════════════════════════════
+    async function updateLive() {
+      try {
+        const r = await fetch('./status.json?_=' + Date.now(), { cache: 'no-store' });
+        if (!r.ok) return;
+        const d = await r.json();
+        if (d.epoch?.current) {
+          document.getElementById('livePct').textContent = d.epoch.current;
+          document.getElementById('liveSuffix').textContent = '/10';
+          drawGauge('g3', (d.epoch.current/d.epoch.total)*100, greenRgb);
+        }
+      } catch(e) {}
+    }
+    updateLive();
+    setInterval(updateLive, 30000);
+  </script>
+</body>
+</html>

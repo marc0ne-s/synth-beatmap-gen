@@ -1,0 +1,17 @@
+# Core ML
+numpy>=2.0
+torch>=2.0
+
+# Audio
+librosa>=0.11
+soundfile>=0.12
+
+# Data
+pyzipper>=0.3
+UnityPy>=1.25
+
+# Optional (for future scaling)
+# pandas>=2.0
+# pyarrow  # for Parquet
+# matplotlib  # for visualization
+# seaborn

@@ -1,0 +1,10 @@
+{
+    "Threshold": 0.4,
+    "Recall@50ms": 96.46770713883112,
+    "Precision@50ms": 22.553641328688006,
+    "Position_MSE": 1.9442831527445938,
+    "Total_GT_Notes": 1286275,
+    "Total_Predicted": 5501728,
+    "Total_Matches": 1240840,
+    "Checkpoint": "models/checkpoints/transformer_phase12b_ep5.pt"
+}

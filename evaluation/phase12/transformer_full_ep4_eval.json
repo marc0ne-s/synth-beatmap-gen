@@ -1,0 +1,5 @@
+{
+  "checkpoint": "/Volumes/Second-Brain-1/AI/Synth/models/checkpoints/transformer_full_ep4.pt",
+  "Recall@50ms": 0.46156357475359827,
+  "Precision@50ms": 17.187172500524,
+  "Position_MSE": 

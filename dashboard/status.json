@@ -1,0 +1,44 @@
+{
+  "timestamp": 1777271707,
+  "training": {
+    "running": true,
+    "etime": "11:53",
+    "cpu": "57.8",
+    "mem": "3.6"
+  },
+  "checkpoints": [
+    "hybrid_cascade_ep4.pt",
+    "hybrid_cascade_ep3.pt",
+    "hybrid_cascade_ep2.pt",
+    "hybrid_cascade_ep1.pt",
+    "transformer_pilot_ep5.pt"
+  ],
+  "epoch": {
+    "current": 10,
+    "total": 10,
+    "batch": "~20",
+    "loss": 81.3
+  },
+  "metrics": {
+    "phase10": {
+      "recall": 53.61,
+      "precision": 37.88,
+      "mse": 19.82
+    },
+    "phase11": {
+      "recall": 41.3,
+      "precision": 40.63,
+      "mse": 13.57
+    },
+    "phase12": {
+      "recall": null,
+      "precision": null,
+      "mse": null
+    },
+    "target": {
+      "recall": 85.0,
+      "precision": 80.0,
+      "mse": 2.0
+    }
+  }
+}

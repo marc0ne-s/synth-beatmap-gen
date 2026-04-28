@@ -1,0 +1,8 @@
+{
+    "Recall@50ms": 53.6091793025945,
+    "Precision@50ms": 37.87548400830797,
+    "Position_MSE": 19.82195600980782,
+    "Total_GT_Notes": 368394,
+    "Total_Predicted": 521427,
+    "Total_Matches": 197493
+}

@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  /* Glassmorphism dark palette */
+  --color-bg-deep: #05070a;
+  --color-bg: #080c14;
+  --color-bg-elev: #0e1420;
+  --color-bg-card: #131b2c;
+  --color-bg-glass: rgba(19, 27, 44, 0.6);
+  --color-border: rgba(100, 160, 255, 0.08);
+  --color-border-glow: rgba(100, 160, 255, 0.2);
+  --color-text: #eaf0f8;
+  --color-text-dim: #6b7d9a;
+  --color-text-faint: #3a4d6b;
+  --color-green: #00e5a0;
+  --color-green-glow: rgba(0, 229, 160, 0.3);
+  --color-amber: #ffa726;
+  --color-amber-glow: rgba(255, 167, 38, 0.3);
+  --color-red: #ff5252;
+  --color-red-glow: rgba(255, 82, 82, 0.3);
+  --color-blue: #42a5f5;
+  --color-blue-glow: rgba(66, 165, 245, 0.3);
+  --color-magenta: #e040fb;
+  --color-cyan: #00e5ff;
+  --color-cyan-glow: rgba(0, 229, 255, 0.3);
+
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--color-bg-deep);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: linear-gradient(145deg, rgba(19, 27, 44, 0.8), rgba(8, 12, 20, 0.9));
+    border: 1px solid rgba(100, 160, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .glow-green { box-shadow: 0 0 40px rgba(0, 229, 160, 0.1); }
+  .glow-amber { box-shadow: 0 0 40px rgba(255, 167, 38, 0.1); }
+  .glow-red { box-shadow: 0 0 40px rgba(255, 82, 82, 0.1); }
+  .text-glow-green { text-shadow: 0 0 20px rgba(0, 229, 160, 0.3); }
+}

@@ -1,0 +1,9 @@
+{
+    "Threshold": 0.3,
+    "Recall@50ms": 71.345474334804,
+    "Precision@50ms": 35.1139012478324,
+    "Position_MSE": 1.9453321748003531,
+    "Total_GT_Notes": 1286275,
+    "Total_Predicted": 2613492,
+    "Total_Matches": 917699
+}

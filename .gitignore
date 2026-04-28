@@ -1,0 +1,69 @@
+# ── Model Weights & Checkpoints ──────────────────────────────────────
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+models/checkpoints/
+models/**/*.pt
+models/**/*.pth
+
+# ── Dataset (Raw Audio, Parsed Maps, Audio Features) ──────────────────
+dataset/
+data/audio/
+data/features/
+*.npy
+*.npz
+autoresearch/run_*.log
+autoresearch/run_*.png
+autoresearch/uv.lock
+
+# ── Generated Maps (Phase 12b output) ──────────────────────────────────
+evaluation/phase12b/gold_standard/
+evaluation/phase12b/feasibility_reports/
+
+# ── Python ────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# ── macOS ─────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ── IDE ────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Training Logs & Temp ──────────────────────────────────────────────
+*.log
+logs/
+wandb/
+runs/
+
+# ── Jupyter ───────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── Node (if dashboard/ has web stuff) ─────────────────────────────────
+node_modules/
+dashboard/node_modules/
+dashboard/.next/
+dashboard/out/
+
+# ── Keep These ────────────────────────────────────────────────────────
+# src/  — core Python modules
+# scripts/ — utility scripts
+# docs/ — documentation
+# README.md, requirements.txt
+# RELAY_PROMPT_PHASE_*.md — context docs
+# HANDOFF_*.md — future agent handoffs
+# research/ — notes and specs

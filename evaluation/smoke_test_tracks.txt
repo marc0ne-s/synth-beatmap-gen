@@ -1,0 +1,10 @@
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/0007b2da6d9527ab.npz
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/000af4720beb62b8.npz
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/0011d0d2f73eb74d.npz
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/001c1ec9e8d98b55.npz
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/001c3efdf3ba4a63.npz
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/00252fb4885c299d.npz
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/0038583fdc1b90ba.npz
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/004085584766ace8.npz
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/004173f4f84bd795.npz
+/Volumes/Second-Brain-1/AI/Synth/dataset/audio_features/00467d76627cc557.npz
