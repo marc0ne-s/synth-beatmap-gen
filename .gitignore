@@ -3,9 +3,12 @@
 *.pth
 *.ckpt
 *.safetensors
-models/checkpoints/
+models/checkpoints/*
 models/**/*.pt
 models/**/*.pth
+
+# EXCEPT: scorer_v0.pt (v0.9988 AUROC playability scorer)
+!models/checkpoints/scorer_v0.pt
 
 # ── Dataset (Raw Audio, Parsed Maps, Audio Features) ──────────────────
 dataset/
