@@ -1,1 +1,4 @@
 commit	score	recall_50	position_mse	memory_gb	status	description
+3110fcb	0.393121	0.5909	0.5031	0.0	keep	baseline hybrid cascade
+79321cd	0.0703	0.1058	0.5043	0.0	discard	concat+proj fusion: recall collapsed 59%→10.5%, loss spiked. revert.
+bca9acc	0.0058	0.0087	0.4989	0.0	discard	double position loss 10->20 — loss spiked 12→18, recall collapsed 59%→0.87%, score 0.393→0.006. revert.
