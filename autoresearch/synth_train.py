@@ -66,7 +66,7 @@ class SynthConfig:
 # Loss Functions
 # ---------------------------------------------------------------------------
 
-def compute_masked_loss(predictions, target_features, lengths, gamma=2.0, pos_weight=1.5):
+def compute_masked_loss(predictions, target_features, lengths, gamma=1.0, pos_weight=1.5):
     pres_logits = predictions["presence_logits"]
     pos_pred = predictions["position_pred"]
     vel_pred = predictions["velocity_pred"]
