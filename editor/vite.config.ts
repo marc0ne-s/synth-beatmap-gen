@@ -8,14 +8,10 @@ export default defineConfig({
   server: {
     port: 3000,
     strictPort: true,
-    watch: {
-      ignored: ['**/src-tauri/**']
-    }
   },
-  envPrefix: ['VITE_', 'TAURI_'],
+  envPrefix: ['VITE_'],
   build: {
-    target: process.env.TAURI_ENV_PLATFORM ? 'chrome105' : 'esnext',
-    minify: !process.env.TAURI_ENV_PLATFORM ? 'esbuild' : false,
-    sourcemap: !!process.env.TAURI_ENV_PLATFORM
+    target: 'esnext',
+    minify: 'esbuild',
   }
 })

@@ -1,13 +1,12 @@
 {
-  "name": "synthgen-editor",
+  "name": "synthriders-web-editor",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "tauri": "tauri"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -23,11 +22,7 @@
     "cmdk": "^1.1.1",
     "react-hotkeys-hook": "^5.0.1",
     "wavesurfer.js": "^7.9.0",
-    "@tauri-apps/api": "^2.5.0",
-    "@tauri-apps/plugin-fs": "^2.4.0",
-    "@tauri-apps/plugin-dialog": "^2.4.0",
-    "@tauri-apps/plugin-http": "^2.4.0",
-    "@tauri-apps/plugin-clipboard-manager": "^2.4.0"
+    "jszip": "^3.10.1"
   },
   "devDependencies": {
     "@types/react": "^19.1.0",
@@ -37,7 +32,6 @@
     "typescript": "^5.8.3",
     "vite": "^6.3.0",
     "tailwindcss": "^4.1.4",
-    "@tailwindcss/vite": "^4.1.4",
-    "@tauri-apps/cli": "^2.5.0"
+    "@tailwindcss/vite": "^4.1.4"
   }
 }

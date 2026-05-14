@@ -39,7 +39,7 @@ export const useEditor = create<EditorStore>()(
     showWaveform: true,
 
     setScreen: (s) => set({ activeScreen: s }),
-    setZoom: (z) => set((state) => ({ timelineZoom: Math.max(0.1, Math.min(10, z)) })),
+    setZoom: (z) => set(() => ({ timelineZoom: Math.max(0.1, Math.min(10, z)) })),
     panRange: (delta) => set((state) => ({
       visibleRange: [
         Math.max(0, state.visibleRange[0] + delta),

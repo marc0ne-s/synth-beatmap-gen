@@ -1,30 +1,99 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useProject } from '../stores/project'
 
-interface WelcomeScreenProps {
-  onOpenProject: (path: string) => void
-  onNewProject: () => void
-  onDropAudio: (files: FileList) => void
-}
+export default function WelcomeScreen() {
+  const navigate = useNavigate()
+  const { clear, setProject } = useProject()
+  const [loadingFile, setLoadingFile] = useState(false)
 
-// Mock recent projects — would read from ~/.synthgen/recents.json via Tauri
-const RECENTS = [
-  { title: 'Neon Pulse', artist: 'Cyber Dreams', modified: '2h ago', difficulty: 'Expert' },
-  { title: 'System Shock', artist: 'Glitch Mode', modified: '1d ago', difficulty: 'Master' },
-]
-
-export default function WelcomeScreen({ onOpenProject, onNewProject, onDropAudio }: WelcomeScreenProps) {
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     if (e.dataTransfer.files.length > 0) {
-      onDropAudio(e.dataTransfer.files)
+      void tryLoadSynth(e.dataTransfer.files[0])
     }
-  }, [onDropAudio])
+  }, [navigate])
+
+  const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      void tryLoadSynth(e.target.files[0])
+    }
+  }, [navigate])
+
+  const tryLoadSynth = async (file: File) => {
+    setLoadingFile(true)
+    try {
+      // MVP 1: verify it's a .synth (ZIP) and extract metadata
+      if (!file.name.endsWith('.synth')) {
+        alert('Please drop a .synth file')
+        setLoadingFile(false)
+        return
+      }
+      const arrayBuffer = await file.arrayBuffer()
+      const bytes = new Uint8Array(arrayBuffer)
+      // Check ZIP magic number
+      const isZip = bytes[0] === 0x50 && bytes[1] === 0x4B
+      if (!isZip) {
+        alert('Not a valid .synth file (must be a ZIP archive)')
+        setLoadingFile(false)
+        return
+      }
+
+      // Parse with JSZip (lazy import for size)
+      const JSZip = (await import('jszip')).default
+      const zip = await JSZip.loadAsync(bytes)
+      const metaEntry = zip.file('synthriderz.meta.json') || zip.file('beatmap.meta.bin')
+      if (!metaEntry) {
+        alert('No beatmap metadata found in .synth file')
+        setLoadingFile(false)
+        return
+      }
+
+      let raw: any
+      const isBin = !!zip.file('beatmap.meta.bin')
+      if (isBin) {
+        const data = await zip.file('beatmap.meta.bin')!.async('text')
+        raw = JSON.parse(data)
+      } else {
+        const data = await zip.file('synthriderz.meta.json')!.async('text')
+        raw = JSON.parse(data)
+      }
+
+      // Extract available difficulties
+      const difficulties = Object.keys(raw.Track || {}).filter(
+        (d) => d !== 'Length' && raw.Track[d] && Object.keys(raw.Track[d]).length > 0
+      )
+
+      setProject({
+        path: null,
+        title: raw.Name || file.name.replace('.synth', ''),
+        artist: raw.Author || 'Unknown',
+        bpm: raw.BPM || 120,
+        duration: raw.Duration || 0,
+        difficulty: difficulties.includes('Expert') ? 'Expert' : difficulties[0] as any,
+        notes: [],
+        dirty: false,
+      })
+
+      navigate('/editor')
+    } catch (err) {
+      console.error(err)
+      alert('Failed to load .synth file: ' + String(err))
+    } finally {
+      setLoadingFile(false)
+    }
+  }
+
+  const handleNewBlank = () => {
+    clear()
+    navigate('/editor')
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-10 p-8"
     >
-      {/* Brand */}
+      { /* Brand */ }
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -47,18 +116,18 @@ export default function WelcomeScreen({ onOpenProject, onNewProject, onDropAudio
         <p className="mt-3 text-base"
           style={{ color: 'var(--color-text-dim)' }}
         >
-          AI-Powered Beatmap Generation for VR Rhythm
+          Cross-platform beatmap editor for VR rhythm
         </p>
       </motion.div>
 
-      {/* Drop Zone */}
+      { /* Drop Zone */ }
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.15, duration: 0.5 }}
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDrop}
-        className="w-full max-w-xl rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer"
+        className="w-full max-w-xl rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer relative"
         style={{
           borderColor: 'rgba(100, 160, 255, 0.15)',
           background: 'linear-gradient(145deg, rgba(19,27,44,0.5), rgba(8,12,20,0.7))',
@@ -74,86 +143,44 @@ export default function WelcomeScreen({ onOpenProject, onNewProject, onDropAudio
           target.style.background = 'linear-gradient(145deg, rgba(19,27,44,0.5), rgba(8,12,20,0.7))'
         }}
       >
+        {loadingFile && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-2xl z-10">
+            <div className="text-sm font-medium">Loading…</div>
+          </div>
+        )}
         <div className="text-5xl mb-4">🎵</div>
-        <h3 className="text-xl font-semibold mb-2">Drop a song to generate</h3>
-        <p style={{ color: 'var(--color-text-dim)' }} className="mb-6">MP3, WAV, OGG, or FLAC — AI handles the rest</p>
+        <h3 className="text-xl font-semibold mb-2">Drop a .synth map file</h3>
+        <p style={{ color: 'var(--color-text-dim)' }} className="mb-6">Drag & drop or browse to open a map</p>
         <div className="flex gap-3 justify-center">
-          <button
-            onClick={() => {/* Tauri dialog open */}}
-            className="px-5 py-2.5 rounded-lg font-medium text-sm transition-all hover:brightness-110"
+          <input
+            type="file"
+            accept=".synth"
+            id="synth-file-input"
+            onChange={handleFileInput}
+            className="hidden"
+          />
+          <label
+            htmlFor="synth-file-input"
+            className="px-5 py-2.5 rounded-lg font-medium text-sm transition-all hover:brightness-110 cursor-pointer"
             style={{
               background: 'rgba(66, 165, 245, 0.12)',
               border: '1px solid rgba(66, 165, 245, 0.2)',
               color: 'var(--color-blue)',
             }}
-          >Browse Files</button>
+          >Browse Files</label>
           <button
-            onClick={() => {/* Spotify OAuth */}}
+            onClick={handleNewBlank}
             className="px-5 py-2.5 rounded-lg font-medium text-sm transition-all hover:brightness-110"
             style={{
-              background: 'rgba(29, 185, 84, 0.1)',
-              border: '1px solid rgba(29, 185, 84, 0.2)',
-              color: '#1db954',
+              background: 'rgba(0, 229, 160, 0.08)',
+              border: '1px solid rgba(0, 229, 160, 0.15)',
+              color: 'var(--color-green)',
             }}
-          >🎧 Spotify</button>
+          >New Blank Map</button>
         </div>
       </motion.div>
 
-      {/* Recent Projects */}
-      {RECENTS.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="w-full max-w-xl"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-semibold uppercase tracking-widest"
-              style={{ color: 'var(--color-text-faint)' }}
-            >Recent Projects</span>
-            <button
-              onClick={onNewProject}
-              className="text-xs font-medium transition-colors hover:brightness-120"
-              style={{ color: 'var(--color-cyan)' }}
-            >+ New Blank</button>
-          </div>
-          <div className="flex flex-col gap-2">
-            {RECENTS.map((r, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.35 + i * 0.08 }}
-                className="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all hover:brightness-110"
-                style={{
-                  background: 'rgba(19, 27, 44, 0.4)',
-                  border: '1px solid rgba(100, 160, 255, 0.06)',
-                }}
-                onClick={() => onOpenProject(r.title)}
-              >
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center text-lg"
-                  style={{ background: 'rgba(0, 229, 160, 0.08)' }}
-                >🎧</div>
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium text-sm truncate">{r.title}</div>
-                  <div className="text-xs truncate"
-                    style={{ color: 'var(--color-text-dim)' }}
-                  >{r.artist} · {r.modified}</div>
-                </div>
-                <div
-                  className="text-xs px-2 py-1 rounded-md font-medium"
-                  style={{
-                    background: r.difficulty === 'Master' ? 'rgba(255,82,82,0.1)' : 'rgba(255,167,38,0.1)',
-                    color: r.difficulty === 'Master' ? 'var(--color-red)' : 'var(--color-amber)',
-                  }}
-                >{r.difficulty}</div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      )}
-
-      {/* Footer shortcuts */}
+      { /* Footer shortcuts */ }
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -162,7 +189,7 @@ export default function WelcomeScreen({ onOpenProject, onNewProject, onDropAudio
         style={{ color: 'var(--color-text-faint)' }}
       >
         <span>⌘K Command Palette</span>
-        <span>⌘O Open…</span>
+        <span>⌘O Open Map…</span>
         <span>⌘, Settings</span>
       </motion.div>
     </div>

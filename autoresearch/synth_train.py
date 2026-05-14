@@ -201,11 +201,13 @@ def compute_metrics(model, loader, device, baseline=None, use_baseline=True):
 # ---------------------------------------------------------------------------
 
 class CoarseFusionWrapper(nn.Module):
-    """Wrap TransformerCausalDecoder and add coarse_memory fusion."""
+    """Wrap TransformerCausalDecoder and add coarse_memory fusion with learned gating."""
     def __init__(self, transformer, d_model, d_coarse=256):
         super().__init__()
         self.transformer = transformer
         self.coarse_proj = nn.Linear(d_coarse, d_model)
+        # Gated fusion: learn per-timestep blending weight
+        self.gate_proj = nn.Linear(d_coarse, d_model)
 
     def forward(self, audio_features, target_features, difficulty_idx, coarse_memory=None):
         x_audio = self.transformer.pos_enc(self.transformer.audio_proj(audio_features))
@@ -215,7 +217,9 @@ class CoarseFusionWrapper(nn.Module):
         v_diff = self.transformer.diff_emb(difficulty_idx).unsqueeze(1).expand(-1, target_features.size(1), -1)
         x = v_tgt + x_audio + v_diff
         if coarse_memory is not None:
-            x = x + self.coarse_proj(coarse_memory)
+            coarse_projected = self.coarse_proj(coarse_memory)
+            gate = torch.sigmoid(self.gate_proj(coarse_memory))
+            x = gate * x + (1.0 - gate) * coarse_projected
         for layer in self.transformer.layers:
             x = layer(x, memory_audio=x_audio)
         presence_logits = self.transformer.presence_out(x)

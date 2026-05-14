@@ -1,7 +1,5 @@
-import { useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useProject } from '../stores/project'
 import { useEditor } from '../stores/editor'
 import Timeline from '../components/timeline/Timeline'
@@ -17,16 +15,12 @@ export default function EditorScreen() {
 
   useHotkeys('space', (e) => { e.preventDefault(); togglePlay() }, [togglePlay])
   useHotkeys('esc', stop, [stop])
-  useHotkeys('v', () =>
-003e setTool('select'), [setTool])
-  useHotkeys('b', () =>
-003e setTool('draw'), [setTool])
-  useHotkeys('e', () =>
-003e setTool('eraser'), [setTool])
-  useHotkeys('g', () =>
-003e setSnap(snapGrid === '1/8' ? '1/16' : snapGrid === '1/16' ? '1/4' : '1/8'), [snapGrid, setSnap])
+  useHotkeys('v', () => setTool('select'), [setTool])
+  useHotkeys('b', () => setTool('draw'), [setTool])
+  useHotkeys('e', () => setTool('eraser'), [setTool])
+  useHotkeys('g', () => setSnap(snapGrid === '1/8' ? '1/16' : snapGrid === '1/16' ? '1/4' : '1/8'), [snapGrid, setSnap])
 
-  if (activeScreen !== 'editor') return null
+  if (activeScreen !== 'editor' && window.location.pathname !== '/editor') return null
 
   return (
     <div className="h-screen flex flex-col overflow-hidden"
@@ -51,17 +45,13 @@ export default function EditorScreen() {
         </div>
         <div className="flex-1" />
         <div className="flex items-center gap-2">
-          <ToolButton active={activeTool === 'select'} onClick={() =>
-003e setTool('select')} label="Select" shortcut="V" />
-          <ToolButton active={activeTool === 'draw'} onClick={() =>
-003e setTool('draw')} label="Draw" shortcut="B" />
-          <ToolButton active={activeTool === 'eraser'} onClick={() =>
-003e setTool('eraser')} label="Erase" shortcut="E" />
+        <ToolButton active={activeTool === 'select'} onClick={() => setTool('select')} label="Select" shortcut="V" />
+        <ToolButton active={activeTool === 'draw'} onClick={() => setTool('draw')} label="Draw" shortcut="B" />
+        <ToolButton active={activeTool === 'eraser'} onClick={() => setTool('eraser')} label="Erase" shortcut="E" />
           <div className="w-px h-6 mx-2"
             style={{ background: 'rgba(100,160,255,0.1)' }}
           />
-          <SnapButton snap={snapGrid} onClick={() =>
-003e setSnap(snapGrid === '1/8' ? '1/16' : snapGrid === '1/16' ? '1/4' : '1/8')} />
+          <SnapButton snap={snapGrid} onClick={() => setSnap(snapGrid === '1/8' ? '1/16' : snapGrid === '1/16' ? '1/4' : '1/8')} />
           <AIButton />
           <div className="w-px h-6 mx-2"
             style={{ background: 'rgba(100,160,255,0.1)' }}
@@ -117,8 +107,7 @@ export default function EditorScreen() {
 }
 
 // Subcomponents
-function ToolButton({ active, onClick, label, shortcut }: { active: boolean; onClick: () =>
-003e void; label: string; shortcut: string }) {
+function ToolButton({ active, onClick, label, shortcut }: { active: boolean; onClick: () => void; label: string; shortcut: string }) {
   return (
     <button
       onClick={onClick}
@@ -134,8 +123,7 @@ function ToolButton({ active, onClick, label, shortcut }: { active: boolean; onC
   )
 }
 
-function SnapButton({ snap, onClick }: { snap: string; onClick: () =>
-003e void }) {
+function SnapButton({ snap, onClick }: { snap: string; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
